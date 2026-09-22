@@ -2,10 +2,10 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>ตัวสร้าง Prompt สำหรับ Gemini Notebook</title>
+  <title>ตัวช่วยสร้าง Prompt สำหรับ Gemini Notebook</title>
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -15,7 +15,7 @@
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Noto Sans Thai', 'sans-serif']
+            sans: ['Noto Sans Thai', 'Arial', 'sans-serif']
           }
         }
       }
@@ -34,7 +34,7 @@
 
     .step-content {
       display: none;
-      animation: fadeIn .25s ease;
+      animation: fadeIn 0.25s ease;
     }
 
     .step-content.active {
@@ -51,14 +51,6 @@
         opacity: 1;
         transform: translateY(0);
       }
-    }
-
-    .step-circle {
-      transition: all .25s ease;
-    }
-
-    .step-line {
-      transition: all .25s ease;
     }
 
     .prompt-box {
@@ -83,20 +75,41 @@
     ::-webkit-scrollbar-track {
       background: transparent;
     }
+
+    .option-card {
+      transition: all 0.2s ease;
+    }
+
+    .option-card:has(input:checked) {
+      border-color: #6366f1;
+      background: #eef2ff;
+    }
+
+    .option-card:hover {
+      border-color: #a5b4fc;
+    }
   </style>
 </head>
 
 <body class="min-h-screen">
 
-  <!-- HEADER -->
+  <!-- =====================================================
+       HEADER
+  ====================================================== -->
+
   <header class="bg-white border-b sticky top-0 z-50">
+
     <div class="max-w-7xl mx-auto px-5 py-4">
+
       <div class="flex items-center gap-3">
-        <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-xl shadow">
+
+        <div
+          class="w-11 h-11 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-xl shadow">
           ✨
         </div>
 
         <div>
+
           <h1 class="text-xl md:text-2xl font-bold text-slate-800">
             ตัวช่วยสร้าง Prompt
           </h1>
@@ -104,162 +117,263 @@
           <p class="text-sm text-slate-500">
             สำหรับสร้างสไลด์ด้วย Gemini Notebook
           </p>
+
         </div>
+
       </div>
+
     </div>
+
   </header>
 
 
-  <!-- STEPPER -->
+  <!-- =====================================================
+       STEPPER
+  ====================================================== -->
+
   <div class="bg-white border-b">
+
     <div class="max-w-7xl mx-auto px-5 py-5">
 
       <div class="flex items-center justify-between overflow-x-auto">
 
         <!-- STEP 1 -->
-        <div class="step-item flex items-center min-w-max" data-step="1">
+        <div class="step-item flex items-center min-w-max">
+
           <button
             onclick="goToStep(1)"
-            class="step-circle w-10 h-10 rounded-full bg-indigo-600 text-white font-bold flex items-center justify-center shadow"
-          >
+            class="step-circle w-10 h-10 rounded-full font-bold flex items-center justify-center shadow">
             1
           </button>
 
           <div class="hidden md:block ml-2">
-            <p class="text-xs text-indigo-600 font-semibold">STEP 1</p>
-            <p class="text-sm font-medium text-slate-700">ข้อมูลหลัก</p>
+
+            <p class="text-xs font-semibold">
+              STEP 1
+            </p>
+
+            <p class="text-sm font-medium">
+              ข้อมูลหลัก
+            </p>
+
           </div>
+
         </div>
+
 
         <div class="step-line flex-1 h-1 mx-3 bg-slate-200 min-w-[30px]"></div>
 
+
         <!-- STEP 2 -->
-        <div class="step-item flex items-center min-w-max" data-step="2">
+        <div class="step-item flex items-center min-w-max">
+
           <button
             onclick="goToStep(2)"
-            class="step-circle w-10 h-10 rounded-full bg-slate-200 text-slate-500 font-bold flex items-center justify-center"
-          >
+            class="step-circle w-10 h-10 rounded-full font-bold flex items-center justify-center">
             2
           </button>
 
           <div class="hidden md:block ml-2">
-            <p class="text-xs text-slate-400 font-semibold">STEP 2</p>
-            <p class="text-sm font-medium text-slate-500">เนื้อหา</p>
+
+            <p class="text-xs font-semibold">
+              STEP 2
+            </p>
+
+            <p class="text-sm font-medium">
+              แหล่งข้อมูล
+            </p>
+
           </div>
+
         </div>
+
 
         <div class="step-line flex-1 h-1 mx-3 bg-slate-200 min-w-[30px]"></div>
 
+
         <!-- STEP 3 -->
-        <div class="step-item flex items-center min-w-max" data-step="3">
+        <div class="step-item flex items-center min-w-max">
+
           <button
             onclick="goToStep(3)"
-            class="step-circle w-10 h-10 rounded-full bg-slate-200 text-slate-500 font-bold flex items-center justify-center"
-          >
+            class="step-circle w-10 h-10 rounded-full font-bold flex items-center justify-center">
             3
           </button>
 
           <div class="hidden md:block ml-2">
-            <p class="text-xs text-slate-400 font-semibold">STEP 3</p>
-            <p class="text-sm font-medium text-slate-500">โครงสร้าง</p>
+
+            <p class="text-xs font-semibold">
+              STEP 3
+            </p>
+
+            <p class="text-sm font-medium">
+              โครงสร้าง
+            </p>
+
           </div>
+
         </div>
+
 
         <div class="step-line flex-1 h-1 mx-3 bg-slate-200 min-w-[30px]"></div>
 
+
         <!-- STEP 4 -->
-        <div class="step-item flex items-center min-w-max" data-step="4">
+        <div class="step-item flex items-center min-w-max">
+
           <button
             onclick="goToStep(4)"
-            class="step-circle w-10 h-10 rounded-full bg-slate-200 text-slate-500 font-bold flex items-center justify-center"
-          >
+            class="step-circle w-10 h-10 rounded-full font-bold flex items-center justify-center">
             4
           </button>
 
           <div class="hidden md:block ml-2">
-            <p class="text-xs text-slate-400 font-semibold">STEP 4</p>
-            <p class="text-sm font-medium text-slate-500">รูปแบบ</p>
+
+            <p class="text-xs font-semibold">
+              STEP 4
+            </p>
+
+            <p class="text-sm font-medium">
+              รูปแบบ
+            </p>
+
           </div>
+
         </div>
+
 
         <div class="step-line flex-1 h-1 mx-3 bg-slate-200 min-w-[30px]"></div>
 
+
         <!-- STEP 5 -->
-        <div class="step-item flex items-center min-w-max" data-step="5">
+        <div class="step-item flex items-center min-w-max">
+
           <button
             onclick="goToStep(5)"
-            class="step-circle w-10 h-10 rounded-full bg-slate-200 text-slate-500 font-bold flex items-center justify-center"
-          >
+            class="step-circle w-10 h-10 rounded-full font-bold flex items-center justify-center">
             5
           </button>
 
           <div class="hidden md:block ml-2">
-            <p class="text-xs text-slate-400 font-semibold">STEP 5</p>
-            <p class="text-sm font-medium text-slate-500">ผลลัพธ์</p>
+
+            <p class="text-xs font-semibold">
+              STEP 5
+            </p>
+
+            <p class="text-sm font-medium">
+              ผลลัพธ์
+            </p>
+
           </div>
+
         </div>
+
 
         <div class="step-line flex-1 h-1 mx-3 bg-slate-200 min-w-[30px]"></div>
 
+
         <!-- STEP 6 -->
-        <div class="step-item flex items-center min-w-max" data-step="6">
+        <div class="step-item flex items-center min-w-max">
+
           <button
             onclick="goToStep(6)"
-            class="step-circle w-10 h-10 rounded-full bg-slate-200 text-slate-500 font-bold flex items-center justify-center"
-          >
+            class="step-circle w-10 h-10 rounded-full font-bold flex items-center justify-center">
             6
           </button>
 
           <div class="hidden md:block ml-2">
-            <p class="text-xs text-slate-400 font-semibold">STEP 6</p>
-            <p class="text-sm font-medium text-slate-500">สร้าง Prompt</p>
+
+            <p class="text-xs font-semibold">
+              STEP 6
+            </p>
+
+            <p class="text-sm font-medium">
+              สร้าง Prompt
+            </p>
+
           </div>
+
         </div>
 
       </div>
+
     </div>
+
   </div>
 
 
-  <!-- MAIN -->
+  <!-- =====================================================
+       MAIN
+  ====================================================== -->
+
   <main class="max-w-7xl mx-auto px-5 py-6">
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
-      <!-- LEFT : FORM -->
-      <section class="bg-white rounded-3xl border shadow-sm overflow-hidden">
+
+      <!-- =================================================
+           LEFT : FORM
+      ================================================== -->
+
+      <section
+        class="bg-white rounded-3xl border shadow-sm overflow-hidden">
+
 
         <!-- FORM HEADER -->
+
         <div class="px-6 py-5 border-b">
+
           <div class="flex justify-between items-center">
 
             <div>
-              <p id="stepNumber" class="text-sm text-indigo-600 font-semibold">
+
+              <p
+                id="stepNumber"
+                class="text-sm text-indigo-600 font-semibold">
                 STEP 1 OF 6
               </p>
 
-              <h2 id="stepTitle" class="text-xl font-bold text-slate-800 mt-1">
+              <h2
+                id="stepTitle"
+                class="text-xl font-bold text-slate-800 mt-1">
                 ข้อมูลหลักของงาน
               </h2>
+
             </div>
 
-            <div class="text-3xl">
-              <span id="stepIcon">📝</span>
+            <div
+              id="stepIcon"
+              class="text-3xl">
+              📝
             </div>
 
           </div>
+
         </div>
 
 
-        <!-- FORM CONTENT -->
+        <!-- =================================================
+             FORM BODY
+        ================================================== -->
+
         <div class="p-6">
 
-          <!-- STEP 1 -->
-          <div id="step1" class="step-content active">
+
+          <!-- =================================================
+               STEP 1
+          ================================================== -->
+
+          <div
+            id="step1"
+            class="step-content active">
 
             <div class="space-y-5">
 
+
+              <!-- ชื่อเรื่อง -->
+
               <div>
+
                 <label class="block text-sm font-semibold text-slate-700 mb-2">
                   ชื่อเรื่อง / หัวข้อ
                 </label>
@@ -268,26 +382,64 @@
                   id="title"
                   type="text"
                   placeholder="เช่น รายงานผลการดำเนินงาน ประจำปี 2569"
-                  class="form-input w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500"
-                />
+                  class="form-input w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500">
+
               </div>
 
 
+              <!-- สไลด์นี้นำเสนอใคร -->
+
               <div>
+
                 <label class="block text-sm font-semibold text-slate-700 mb-2">
-                  วัตถุประสงค์ของสไลด์
+                  สไลด์นี้นำเสนอใคร
                 </label>
 
-                <textarea
-                  id="objective"
-                  rows="4"
-                  placeholder="ระบุว่าต้องการใช้สไลด์ชุดนี้เพื่ออะไร..."
-                  class="form-input w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500"
-                ></textarea>
+                <select
+                  id="audience"
+                  class="form-input w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500">
+
+                  <option value="ผู้บริหาร">
+                    ผู้บริหาร
+                  </option>
+
+                  <option value="ผู้บริหารระดับสูง">
+                    ผู้บริหารระดับสูง
+                  </option>
+
+                  <option value="บุคลากรภายในองค์กร">
+                    บุคลากรภายในองค์กร
+                  </option>
+
+                  <option value="คณะกรรมการ">
+                    คณะกรรมการ
+                  </option>
+
+                  <option value="นักศึกษา">
+                    นักศึกษา
+                  </option>
+
+                  <option value="ประชาชนทั่วไป">
+                    ประชาชนทั่วไป
+                  </option>
+
+                  <option value="ผู้เข้าร่วมประชุม">
+                    ผู้เข้าร่วมประชุม
+                  </option>
+
+                  <option value="อื่น ๆ">
+                    อื่น ๆ
+                  </option>
+
+                </select>
+
               </div>
 
 
+              <!-- จำนวนสไลด์ -->
+
               <div>
+
                 <label class="block text-sm font-semibold text-slate-700 mb-2">
                   จำนวนสไลด์ที่ต้องการ
                 </label>
@@ -297,24 +449,37 @@
                   type="number"
                   min="1"
                   value="10"
-                  class="form-input w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500"
-                />
+                  class="form-input w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500">
+
               </div>
 
 
+              <!-- ภาษา -->
+
               <div>
+
                 <label class="block text-sm font-semibold text-slate-700 mb-2">
                   ภาษาของสไลด์
                 </label>
 
                 <select
                   id="language"
-                  class="form-input w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500"
-                >
-                  <option value="ภาษาไทย">ภาษาไทย</option>
-                  <option value="ภาษาอังกฤษ">ภาษาอังกฤษ</option>
-                  <option value="ไทยและอังกฤษ">ไทยและอังกฤษ</option>
+                  class="form-input w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500">
+
+                  <option value="ภาษาไทย">
+                    ภาษาไทย
+                  </option>
+
+                  <option value="ภาษาอังกฤษ">
+                    ภาษาอังกฤษ
+                  </option>
+
+                  <option value="ไทยและอังกฤษ">
+                    ไทยและอังกฤษ
+                  </option>
+
                 </select>
+
               </div>
 
             </div>
@@ -322,64 +487,154 @@
           </div>
 
 
-          <!-- STEP 2 -->
-          <div id="step2" class="step-content">
+          <!-- =================================================
+               STEP 2
+          ================================================== -->
+
+          <div
+            id="step2"
+            class="step-content">
 
             <div class="space-y-5">
 
+
               <div>
-                <label class="block text-sm font-semibold text-slate-700 mb-2">
-                  เนื้อหาหลัก
+
+                <label class="block text-sm font-semibold text-slate-700 mb-3">
+                  เนื้อหาข้อมูลอยู่ที่ไหน
                 </label>
 
-                <textarea
-                  id="mainContent"
-                  rows="8"
-                  placeholder="วางเนื้อหาหลักที่ต้องการนำมาสร้างสไลด์..."
-                  class="form-input w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500"
-                ></textarea>
+                <p class="text-xs text-slate-500 mb-4">
+                  เลือกแหล่งที่มาของข้อมูลที่ต้องการนำมาใช้สร้างสไลด์
+                </p>
+
+
+                <div class="space-y-3">
+
+
+                  <!-- Google Sheet -->
+
+                  <label
+                    class="option-card flex items-center gap-4 p-4 rounded-2xl border-2 border-slate-200 cursor-pointer">
+
+                    <input
+                      type="radio"
+                      name="dataSource"
+                      value="อยู่ใน Google Sheet"
+                      class="w-5 h-5 text-indigo-600">
+
+                    <div>
+
+                      <p class="font-semibold text-slate-800">
+                        📊 อยู่ใน Google Sheet
+                      </p>
+
+                      <p class="text-xs text-slate-500 mt-1">
+                        ข้อมูลอยู่ใน Google Sheets
+                      </p>
+
+                    </div>
+
+                  </label>
+
+
+                  <!-- File -->
+
+                  <label
+                    class="option-card flex items-center gap-4 p-4 rounded-2xl border-2 border-slate-200 cursor-pointer">
+
+                    <input
+                      type="radio"
+                      name="dataSource"
+                      value="เป็นไฟล์ข้อมูลในเครื่อง"
+                      class="w-5 h-5 text-indigo-600">
+
+                    <div>
+
+                      <p class="font-semibold text-slate-800">
+                        📁 เป็นไฟล์ข้อมูลในเครื่อง
+                      </p>
+
+                      <p class="text-xs text-slate-500 mt-1">
+                        เช่น Excel, Word, PDF หรือไฟล์ข้อมูลอื่น ๆ
+                      </p>
+
+                    </div>
+
+                  </label>
+
+
+                  <!-- แหล่งข้อมูล -->
+
+                  <label
+                    class="option-card flex items-center gap-4 p-4 rounded-2xl border-2 border-slate-200 cursor-pointer">
+
+                    <input
+                      type="radio"
+                      name="dataSource"
+                      value="อยู่ในแหล่งข้อมูล"
+                      class="w-5 h-5 text-indigo-600">
+
+                    <div>
+
+                      <p class="font-semibold text-slate-800">
+                        🌐 อยู่ในแหล่งข้อมูล
+                      </p>
+
+                      <p class="text-xs text-slate-500 mt-1">
+                        เช่น เว็บไซต์ เอกสารออนไลน์ หรือแหล่งข้อมูลอื่น
+                      </p>
+
+                    </div>
+
+                  </label>
+
+
+                  <!-- กระดาษ -->
+
+                  <label
+                    class="option-card flex items-center gap-4 p-4 rounded-2xl border-2 border-slate-200 cursor-pointer">
+
+                    <input
+                      type="radio"
+                      name="dataSource"
+                      value="อยู่ในกระดาษ / ยังไม่มี"
+                      class="w-5 h-5 text-indigo-600">
+
+                    <div>
+
+                      <p class="font-semibold text-slate-800">
+                        📝 อยู่ในกระดาษ / ยังไม่มี
+                      </p>
+
+                      <p class="text-xs text-slate-500 mt-1">
+                        มีข้อมูลเป็นเอกสารกระดาษ หรือยังไม่มีข้อมูลในระบบ
+                      </p>
+
+                    </div>
+
+                  </label>
+
+
+                </div>
+
               </div>
 
 
+              <!-- รายละเอียดข้อมูล -->
+
               <div>
+
                 <label class="block text-sm font-semibold text-slate-700 mb-2">
-                  ประเด็นสำคัญ
+                  รายละเอียดเกี่ยวกับข้อมูล
                 </label>
 
                 <textarea
-                  id="keyPoints"
+                  id="dataDetail"
                   rows="6"
-                  placeholder="ระบุประเด็นสำคัญที่ต้องการให้ปรากฏในสไลด์ เช่น&#10;• ผลการดำเนินงาน&#10;• ตัวเลขสำคัญ&#10;• ปัญหาและอุปสรรค&#10;• แนวทางพัฒนา"
-                  class="form-input w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500"
-                ></textarea>
-              </div>
+                  placeholder="อธิบายเพิ่มเติมว่าข้อมูลที่ต้องการนำมาใช้มีอะไรบ้าง เช่น รายงานผลการดำเนินงาน ตารางข้อมูล ตัวเลขสถิติ ฯลฯ"
+                  class="form-input w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500"></textarea>
 
-
-              <div>
-                <label class="block text-sm font-semibold text-slate-700 mb-2">
-                  ข้อมูล / แหล่งอ้างอิง
-                </label>
-
-                <textarea
-                  id="references"
-                  rows="5"
-                  placeholder="ระบุเอกสาร แหล่งข้อมูล หรือข้อมูลที่ต้องการให้นำมาใช้อ้างอิง..."
-                  class="form-input w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500"
-                ></textarea>
-              </div>
-
-
-              <div>
-                <label class="block text-sm font-semibold text-slate-700 mb-2">
-                  สิ่งที่ต้องการเน้นเป็นพิเศษ
-                </label>
-
-                <textarea
-                  id="emphasis"
-                  rows="4"
-                  placeholder="เช่น ต้องการเน้นตัวเลข ผลสำเร็จที่สำคัญ หรือประเด็นที่ผู้บริหารควรรู้"
-                  class="form-input w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500"
-                ></textarea>
               </div>
 
             </div>
@@ -387,12 +642,21 @@
           </div>
 
 
-          <!-- STEP 3 -->
-          <div id="step3" class="step-content">
+          <!-- =================================================
+               STEP 3
+          ================================================== -->
+
+          <div
+            id="step3"
+            class="step-content">
 
             <div class="space-y-5">
 
+
+              <!-- หัวข้อ -->
+
               <div>
+
                 <label class="block text-sm font-semibold text-slate-700 mb-2">
                   หัวข้อของแต่ละสไลด์
                 </label>
@@ -401,61 +665,103 @@
                   id="slideTopics"
                   rows="9"
                   placeholder="ระบุหัวข้อทีละบรรทัด เช่น&#10;1. บทนำ&#10;2. ภาพรวมการดำเนินงาน&#10;3. ผลการดำเนินงาน&#10;4. ปัญหาและอุปสรรค&#10;5. แนวทางพัฒนา"
-                  class="form-input w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500"
-                ></textarea>
+                  class="form-input w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500"></textarea>
 
                 <p class="text-xs text-slate-400 mt-2">
-                  💡 แนะนำให้ใส่หัวข้อทีละบรรทัด เพื่อให้ระบบนำไปแบ่งเป็นสไลด์ได้ชัดเจน
+                  💡 แนะนำให้ใส่หัวข้อทีละบรรทัด เพื่อให้ Gemini แบ่งเป็นสไลด์ได้ชัดเจน
                 </p>
+
               </div>
 
 
+              <!-- การเรียง -->
+
               <div>
+
                 <label class="block text-sm font-semibold text-slate-700 mb-2">
                   รูปแบบการเรียงเนื้อหา
                 </label>
 
                 <select
                   id="structure"
-                  class="form-input w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500"
-                >
-                  <option value="เริ่มจากภาพรวม → รายละเอียด → สรุป">ภาพรวม → รายละเอียด → สรุป</option>
-                  <option value="ปัญหา → วิเคราะห์ → แนวทางแก้ไข">ปัญหา → วิเคราะห์ → แนวทางแก้ไข</option>
-                  <option value="ข้อมูล → ผลลัพธ์ → ข้อเสนอแนะ">ข้อมูล → ผลลัพธ์ → ข้อเสนอแนะ</option>
-                  <option value="เรียงตามหัวข้อที่กำหนด">เรียงตามหัวข้อที่กำหนด</option>
+                  class="form-input w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500">
+
+                  <option value="เริ่มจากภาพรวม → รายละเอียด → สรุป">
+                    ภาพรวม → รายละเอียด → สรุป
+                  </option>
+
+                  <option value="ปัญหา → วิเคราะห์ → แนวทางแก้ไข">
+                    ปัญหา → วิเคราะห์ → แนวทางแก้ไข
+                  </option>
+
+                  <option value="ข้อมูล → ผลลัพธ์ → ข้อเสนอแนะ">
+                    ข้อมูล → ผลลัพธ์ → ข้อเสนอแนะ
+                  </option>
+
+                  <option value="เรียงตามหัวข้อที่กำหนด">
+                    เรียงตามหัวข้อที่กำหนด
+                  </option>
+
                 </select>
+
               </div>
 
 
+              <!-- จำนวน Bullet -->
+
               <div>
+
                 <label class="block text-sm font-semibold text-slate-700 mb-2">
                   จำนวนหัวข้อย่อยต่อสไลด์
                 </label>
 
                 <select
                   id="bulletCount"
-                  class="form-input w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500"
-                >
-                  <option value="ไม่เกิน 3 หัวข้อ">ไม่เกิน 3 หัวข้อ</option>
-                  <option value="ไม่เกิน 4 หัวข้อ">ไม่เกิน 4 หัวข้อ</option>
-                  <option value="ไม่เกิน 5 หัวข้อ">ไม่เกิน 5 หัวข้อ</option>
-                  <option value="ตามความเหมาะสม">ตามความเหมาะสม</option>
+                  class="form-input w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500">
+
+                  <option value="ไม่เกิน 3 หัวข้อ">
+                    ไม่เกิน 3 หัวข้อ
+                  </option>
+
+                  <option value="ไม่เกิน 4 หัวข้อ">
+                    ไม่เกิน 4 หัวข้อ
+                  </option>
+
+                  <option value="ไม่เกิน 5 หัวข้อ">
+                    ไม่เกิน 5 หัวข้อ
+                  </option>
+
+                  <option value="ตามความเหมาะสม">
+                    ตามความเหมาะสม
+                  </option>
+
                 </select>
+
               </div>
 
 
+              <!-- Section -->
+
               <div>
+
                 <label class="block text-sm font-semibold text-slate-700 mb-2">
                   การแบ่งบท / Section
                 </label>
 
                 <select
                   id="sectionMode"
-                  class="form-input w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500"
-                >
-                  <option value="แบ่งเป็น Section อย่างชัดเจน">แบ่งเป็น Section อย่างชัดเจน</option>
-                  <option value="ไม่ต้องแบ่ง Section">ไม่ต้องแบ่ง Section</option>
+                  class="form-input w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500">
+
+                  <option value="แบ่งเป็น Section อย่างชัดเจน">
+                    แบ่งเป็น Section อย่างชัดเจน
+                  </option>
+
+                  <option value="ไม่ต้องแบ่ง Section">
+                    ไม่ต้องแบ่ง Section
+                  </option>
+
                 </select>
+
               </div>
 
             </div>
@@ -463,80 +769,162 @@
           </div>
 
 
-          <!-- STEP 4 -->
-          <div id="step4" class="step-content">
+          <!-- =================================================
+               STEP 4
+          ================================================== -->
+
+          <div
+            id="step4"
+            class="step-content">
 
             <div class="space-y-5">
 
+
+              <!-- Style -->
+
               <div>
+
                 <label class="block text-sm font-semibold text-slate-700 mb-2">
                   สไตล์การนำเสนอ
                 </label>
 
                 <select
                   id="style"
-                  class="form-input w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500"
-                >
-                  <option value="Modern Professional">Modern Professional</option>
-                  <option value="Minimal">Minimal</option>
-                  <option value="Academic">Academic</option>
-                  <option value="Executive">Executive</option>
-                  <option value="Creative">Creative</option>
-                  <option value="Modern AI">Modern AI</option>
+                  class="form-input w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500">
+
+                  <option value="Modern Professional">
+                    Modern Professional
+                  </option>
+
+                  <option value="Minimal">
+                    Minimal
+                  </option>
+
+                  <option value="Academic">
+                    Academic
+                  </option>
+
+                  <option value="Executive">
+                    Executive
+                  </option>
+
+                  <option value="Creative">
+                    Creative
+                  </option>
+
+                  <option value="Modern AI">
+                    Modern AI
+                  </option>
+
                 </select>
+
               </div>
 
 
+              <!-- สี -->
+
               <div>
+
                 <label class="block text-sm font-semibold text-slate-700 mb-2">
                   โทนสี
                 </label>
 
                 <select
                   id="colorTone"
-                  class="form-input w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500"
-                >
-                  <option value="สุภาพและเป็นมืออาชีพ">สุภาพและเป็นมืออาชีพ</option>
-                  <option value="ฟ้า-ขาว">ฟ้า-ขาว</option>
-                  <option value="ม่วง-ขาว">ม่วง-ขาว</option>
-                  <option value="น้ำเงิน-ขาว">น้ำเงิน-ขาว</option>
-                  <option value="สีพาสเทล">สีพาสเทล</option>
-                  <option value="ให้ AI เลือกให้เหมาะสม">ให้ AI เลือกให้เหมาะสม</option>
+                  class="form-input w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500">
+
+                  <option value="สุภาพและเป็นมืออาชีพ">
+                    สุภาพและเป็นมืออาชีพ
+                  </option>
+
+                  <option value="ฟ้า-ขาว">
+                    ฟ้า-ขาว
+                  </option>
+
+                  <option value="ม่วง-ขาว">
+                    ม่วง-ขาว
+                  </option>
+
+                  <option value="น้ำเงิน-ขาว">
+                    น้ำเงิน-ขาว
+                  </option>
+
+                  <option value="สีพาสเทล">
+                    สีพาสเทล
+                  </option>
+
+                  <option value="ให้ AI เลือกให้เหมาะสม">
+                    ให้ AI เลือกให้เหมาะสม
+                  </option>
+
                 </select>
+
               </div>
 
 
+              <!-- Visual -->
+
               <div>
+
                 <label class="block text-sm font-semibold text-slate-700 mb-2">
                   การใช้ภาพ / ไอคอน / Infographic
                 </label>
 
                 <select
                   id="visual"
-                  class="form-input w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500"
-                >
-                  <option value="ใช้ภาพ ไอคอน และ Infographic ตามความเหมาะสม">ใช้ภาพ ไอคอน และ Infographic ตามความเหมาะสม</option>
-                  <option value="เน้น Infographic">เน้น Infographic</option>
-                  <option value="เน้นภาพประกอบ">เน้นภาพประกอบ</option>
-                  <option value="เน้นไอคอนและ Diagram">เน้นไอคอนและ Diagram</option>
-                  <option value="ใช้เท่าที่จำเป็น">ใช้เท่าที่จำเป็น</option>
+                  class="form-input w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500">
+
+                  <option value="ใช้ภาพ ไอคอน และ Infographic ตามความเหมาะสม">
+                    ใช้ภาพ ไอคอน และ Infographic ตามความเหมาะสม
+                  </option>
+
+                  <option value="เน้น Infographic">
+                    เน้น Infographic
+                  </option>
+
+                  <option value="เน้นภาพประกอบ">
+                    เน้นภาพประกอบ
+                  </option>
+
+                  <option value="เน้นไอคอนและ Diagram">
+                    เน้นไอคอนและ Diagram
+                  </option>
+
+                  <option value="ใช้เท่าที่จำเป็น">
+                    ใช้เท่าที่จำเป็น
+                  </option>
+
                 </select>
+
               </div>
 
 
+              <!-- Formality -->
+
               <div>
+
                 <label class="block text-sm font-semibold text-slate-700 mb-2">
                   ระดับความเป็นทางการ
                 </label>
 
                 <select
                   id="formality"
-                  class="form-input w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500"
-                >
-                  <option value="เป็นทางการ">เป็นทางการ</option>
-                  <option value="กึ่งทางการ">กึ่งทางการ</option>
-                  <option value="ทันสมัยและเป็นมืออาชีพ">ทันสมัยและเป็นมืออาชีพ</option>
+                  class="form-input w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500">
+
+                  <option value="เป็นทางการ">
+                    เป็นทางการ
+                  </option>
+
+                  <option value="กึ่งทางการ">
+                    กึ่งทางการ
+                  </option>
+
+                  <option value="ทันสมัยและเป็นมืออาชีพ">
+                    ทันสมัยและเป็นมืออาชีพ
+                  </option>
+
                 </select>
+
               </div>
 
             </div>
@@ -544,79 +932,385 @@
           </div>
 
 
-          <!-- STEP 5 -->
-          <div id="step5" class="step-content">
+          <!-- =================================================
+               STEP 5
+          ================================================== -->
 
-            <div class="space-y-5">
+          <div
+            id="step5"
+            class="step-content">
+
+            <div class="space-y-6">
+
+
+              <!-- Output Format -->
 
               <div>
+
                 <label class="block text-sm font-semibold text-slate-700 mb-2">
                   รูปแบบการสร้างสไลด์
                 </label>
 
                 <select
                   id="outputFormat"
-                  class="form-input w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500"
-                >
-                  <option value="Slide-by-Slide">Slide-by-Slide</option>
-                  <option value="Detailed Presentation">Detailed Presentation</option>
-                  <option value="Executive Presentation">Executive Presentation</option>
+                  class="form-input w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500">
+
+                  <option value="Slide-by-Slide">
+                    Slide-by-Slide
+                  </option>
+
+                  <option value="Detailed Presentation">
+                    Detailed Presentation
+                  </option>
+
+                  <option value="Executive Presentation">
+                    Executive Presentation
+                  </option>
+
                 </select>
+
               </div>
 
 
+              <!-- สิ่งที่ต้องการให้มี -->
+
               <div>
-                <label class="block text-sm font-semibold text-slate-700 mb-2">
-                  สิ่งที่ต้องการให้มีในแต่ละสไลด์
+
+                <label class="block text-sm font-semibold text-slate-700 mb-3">
+                  ข้อมูลที่ต้องการให้มีในแต่ละสไลด์
                 </label>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
 
-                  <label class="flex items-center gap-3 p-3 rounded-xl border hover:bg-slate-50 cursor-pointer">
-                    <input type="checkbox" class="output-check rounded text-indigo-600" value="Title">
-                    <span class="text-sm">ชื่อสไลด์</span>
+
+                  <label class="option-card flex items-center gap-3 p-3 rounded-xl border-2 border-slate-200 cursor-pointer">
+
+                    <input
+                      type="checkbox"
+                      class="output-check w-5 h-5 text-indigo-600 rounded"
+                      value="ชื่อสไลด์">
+
+                    <span class="text-sm">
+                      ชื่อสไลด์
+                    </span>
+
                   </label>
 
-                  <label class="flex items-center gap-3 p-3 rounded-xl border hover:bg-slate-50 cursor-pointer">
-                    <input type="checkbox" class="output-check rounded text-indigo-600" value="Key Message">
-                    <span class="text-sm">Key Message</span>
+
+                  <label class="option-card flex items-center gap-3 p-3 rounded-xl border-2 border-slate-200 cursor-pointer">
+
+                    <input
+                      type="checkbox"
+                      class="output-check w-5 h-5 text-indigo-600 rounded"
+                      value="Key Message">
+
+                    <span class="text-sm">
+                      Key Message
+                    </span>
+
                   </label>
 
-                  <label class="flex items-center gap-3 p-3 rounded-xl border hover:bg-slate-50 cursor-pointer">
-                    <input type="checkbox" class="output-check rounded text-indigo-600" value="Bullet Points">
-                    <span class="text-sm">Bullet Points</span>
+
+                  <label class="option-card flex items-center gap-3 p-3 rounded-xl border-2 border-slate-200 cursor-pointer">
+
+                    <input
+                      type="checkbox"
+                      class="output-check w-5 h-5 text-indigo-600 rounded"
+                      value="Bullet Points">
+
+                    <span class="text-sm">
+                      Bullet Points
+                    </span>
+
                   </label>
 
-                  <label class="flex items-center gap-3 p-3 rounded-xl border hover:bg-slate-50 cursor-pointer">
-                    <input type="checkbox" class="output-check rounded text-indigo-600" value="Visual Suggestion">
-                    <span class="text-sm">Visual Suggestion</span>
+
+                  <label class="option-card flex items-center gap-3 p-3 rounded-xl border-2 border-slate-200 cursor-pointer">
+
+                    <input
+                      type="checkbox"
+                      class="output-check w-5 h-5 text-indigo-600 rounded"
+                      value="Visual Suggestion">
+
+                    <span class="text-sm">
+                      Visual Suggestion
+                    </span>
+
                   </label>
 
-                  <label class="flex items-center gap-3 p-3 rounded-xl border hover:bg-slate-50 cursor-pointer">
-                    <input type="checkbox" class="output-check rounded text-indigo-600" value="Speaker Notes">
-                    <span class="text-sm">Speaker Notes</span>
+
+                  <label class="option-card flex items-center gap-3 p-3 rounded-xl border-2 border-slate-200 cursor-pointer">
+
+                    <input
+                      type="checkbox"
+                      class="output-check w-5 h-5 text-indigo-600 rounded"
+                      value="Speaker Notes">
+
+                    <span class="text-sm">
+                      Speaker Notes
+                    </span>
+
                   </label>
 
-                  <label class="flex items-center gap-3 p-3 rounded-xl border hover:bg-slate-50 cursor-pointer">
-                    <input type="checkbox" class="output-check rounded text-indigo-600" value="Source / Reference">
-                    <span class="text-sm">แหล่งอ้างอิง</span>
+
+                  <label class="option-card flex items-center gap-3 p-3 rounded-xl border-2 border-slate-200 cursor-pointer">
+
+                    <input
+                      type="checkbox"
+                      class="output-check w-5 h-5 text-indigo-600 rounded"
+                      value="แหล่งอ้างอิง">
+
+                    <span class="text-sm">
+                      แหล่งอ้างอิง
+                    </span>
+
                   </label>
 
                 </div>
+
               </div>
 
 
+              <!-- =================================================
+                   ข้อกำหนดเพิ่มเติมแบบเลือกหลายข้อ
+              ================================================== -->
+
               <div>
+
                 <label class="block text-sm font-semibold text-slate-700 mb-2">
-                  ข้อกำหนดเพิ่มเติม
+                  ข้อกำหนดในการสร้างสไลด์
                 </label>
 
-                <textarea
-                  id="additionalRules"
-                  rows="6"
-                  placeholder="เช่น&#10;• ใช้ภาษาที่เข้าใจง่าย&#10;• ห้ามใส่ข้อความยาวเกินไป&#10;• เน้นข้อมูลสำคัญ&#10;• ห้ามรวมหลายหัวข้อหลักไว้ในหน้าเดียว"
-                  class="form-input w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-500"
-                ></textarea>
+                <p class="text-xs text-slate-500 mb-4">
+                  สามารถเลือกได้มากกว่า 1 ข้อ
+                </p>
+
+
+                <div class="space-y-3">
+
+
+                  <label class="option-card flex items-start gap-3 p-4 rounded-2xl border-2 border-slate-200 cursor-pointer">
+
+                    <input
+                      type="checkbox"
+                      class="rule-check w-5 h-5 mt-0.5 text-indigo-600 rounded"
+                      value="ใช้ภาษาไทยที่เข้าใจง่าย">
+
+                    <div>
+
+                      <p class="font-semibold text-slate-800">
+                        🗣️ ใช้ภาษาไทยที่เข้าใจง่าย
+                      </p>
+
+                      <p class="text-xs text-slate-500 mt-1">
+                        หลีกเลี่ยงศัพท์ที่ซับซ้อนและประโยคที่อ่านยาก
+                      </p>
+
+                    </div>
+
+                  </label>
+
+
+                  <label class="option-card flex items-start gap-3 p-4 rounded-2xl border-2 border-slate-200 cursor-pointer">
+
+                    <input
+                      type="checkbox"
+                      class="rule-check w-5 h-5 mt-0.5 text-indigo-600 rounded"
+                      value="ห้ามใส่ข้อความยาวเกินไป">
+
+                    <div>
+
+                      <p class="font-semibold text-slate-800">
+                        ✂️ ห้ามใส่ข้อความยาวเกินไป
+                      </p>
+
+                      <p class="text-xs text-slate-500 mt-1">
+                        เน้นข้อความสั้น กระชับ และเหมาะกับการอ่านบนสไลด์
+                      </p>
+
+                    </div>
+
+                  </label>
+
+
+                  <label class="option-card flex items-start gap-3 p-4 rounded-2xl border-2 border-slate-200 cursor-pointer">
+
+                    <input
+                      type="checkbox"
+                      class="rule-check w-5 h-5 mt-0.5 text-indigo-600 rounded"
+                      value="เน้นข้อมูลสำคัญ">
+
+                    <div>
+
+                      <p class="font-semibold text-slate-800">
+                        🎯 เน้นข้อมูลสำคัญ
+                      </p>
+
+                      <p class="text-xs text-slate-500 mt-1">
+                        ดึงประเด็นสำคัญ ตัวเลข และข้อสรุปให้โดดเด่น
+                      </p>
+
+                    </div>
+
+                  </label>
+
+
+                  <label class="option-card flex items-start gap-3 p-4 rounded-2xl border-2 border-slate-200 cursor-pointer">
+
+                    <input
+                      type="checkbox"
+                      class="rule-check w-5 h-5 mt-0.5 text-indigo-600 rounded"
+                      value="ห้ามรวมหลายหัวข้อหลักไว้ในหน้าเดียว">
+
+                    <div>
+
+                      <p class="font-semibold text-slate-800">
+                        📑 ห้ามรวมหลายหัวข้อหลักไว้ในหน้าเดียว
+                      </p>
+
+                      <p class="text-xs text-slate-500 mt-1">
+                        1 หัวข้อหลักควรนำเสนอใน 1 สไลด์
+                      </p>
+
+                    </div>
+
+                  </label>
+
+
+                  <label class="option-card flex items-start gap-3 p-4 rounded-2xl border-2 border-slate-200 cursor-pointer">
+
+                    <input
+                      type="checkbox"
+                      class="rule-check w-5 h-5 mt-0.5 text-indigo-600 rounded"
+                      value="ใช้ Bullet Point ที่กระชับ">
+
+                    <div>
+
+                      <p class="font-semibold text-slate-800">
+                        • ใช้ Bullet Point ที่กระชับ
+                      </p>
+
+                      <p class="text-xs text-slate-500 mt-1">
+                        แบ่งข้อมูลเป็นข้อ ๆ เพื่อให้อ่านง่าย
+                      </p>
+
+                    </div>
+
+                  </label>
+
+
+                  <label class="option-card flex items-start gap-3 p-4 rounded-2xl border-2 border-slate-200 cursor-pointer">
+
+                    <input
+                      type="checkbox"
+                      class="rule-check w-5 h-5 mt-0.5 text-indigo-600 rounded"
+                      value="เน้นภาพและ Infographic มากกว่าข้อความ">
+
+                    <div>
+
+                      <p class="font-semibold text-slate-800">
+                        📊 เน้นภาพและ Infographic มากกว่าข้อความ
+                      </p>
+
+                      <p class="text-xs text-slate-500 mt-1">
+                        ใช้ Visual ช่วยสื่อสารข้อมูลแทนข้อความจำนวนมาก
+                      </p>
+
+                    </div>
+
+                  </label>
+
+
+                  <label class="option-card flex items-start gap-3 p-4 rounded-2xl border-2 border-slate-200 cursor-pointer">
+
+                    <input
+                      type="checkbox"
+                      class="rule-check w-5 h-5 mt-0.5 text-indigo-600 rounded"
+                      value="ใช้ตัวเลขและข้อมูลสำคัญเป็นจุดเด่น">
+
+                    <div>
+
+                      <p class="font-semibold text-slate-800">
+                        🔢 ใช้ตัวเลขและข้อมูลสำคัญเป็นจุดเด่น
+                      </p>
+
+                      <p class="text-xs text-slate-500 mt-1">
+                        ทำให้ตัวเลขสำคัญมองเห็นและเข้าใจได้ง่าย
+                      </p>
+
+                    </div>
+
+                  </label>
+
+
+                  <label class="option-card flex items-start gap-3 p-4 rounded-2xl border-2 border-slate-200 cursor-pointer">
+
+                    <input
+                      type="checkbox"
+                      class="rule-check w-5 h-5 mt-0.5 text-indigo-600 rounded"
+                      value="จัดลำดับเนื้อหาให้เล่าเรื่องต่อเนื่อง">
+
+                    <div>
+
+                      <p class="font-semibold text-slate-800">
+                        📖 จัดลำดับเนื้อหาให้เล่าเรื่องต่อเนื่อง
+                      </p>
+
+                      <p class="text-xs text-slate-500 mt-1">
+                        แต่ละสไลด์เชื่อมโยงกันอย่างเป็นธรรมชาติ
+                      </p>
+
+                    </div>
+
+                  </label>
+
+
+                  <label class="option-card flex items-start gap-3 p-4 rounded-2xl border-2 border-slate-200 cursor-pointer">
+
+                    <input
+                      type="checkbox"
+                      class="rule-check w-5 h-5 mt-0.5 text-indigo-600 rounded"
+                      value="ห้ามสร้างข้อมูลที่ไม่มีในแหล่งข้อมูล">
+
+                    <div>
+
+                      <p class="font-semibold text-slate-800">
+                        🔒 ห้ามสร้างข้อมูลที่ไม่มีในแหล่งข้อมูล
+                      </p>
+
+                      <p class="text-xs text-slate-500 mt-1">
+                        หากไม่มีข้อมูลให้ระบุว่าไม่มีข้อมูล แทนการคาดเดา
+                      </p>
+
+                    </div>
+
+                  </label>
+
+
+                  <label class="option-card flex items-start gap-3 p-4 rounded-2xl border-2 border-slate-200 cursor-pointer">
+
+                    <input
+                      type="checkbox"
+                      class="rule-check w-5 h-5 mt-0.5 text-indigo-600 rounded"
+                      value="เหมาะสำหรับการนำเสนอในที่ประชุม">
+
+                    <div>
+
+                      <p class="font-semibold text-slate-800">
+                        🧑‍💼 เหมาะสำหรับการนำเสนอในที่ประชุม
+                      </p>
+
+                      <p class="text-xs text-slate-500 mt-1">
+                        เน้นประเด็นที่ผู้ฟังสามารถเข้าใจได้รวดเร็ว
+                      </p>
+
+                    </div>
+
+                  </label>
+
+
+                </div>
+
               </div>
 
             </div>
@@ -624,12 +1318,19 @@
           </div>
 
 
-          <!-- STEP 6 -->
-          <div id="step6" class="step-content">
+          <!-- =================================================
+               STEP 6
+          ================================================== -->
+
+          <div
+            id="step6"
+            class="step-content">
 
             <div class="space-y-5">
 
-              <div class="p-5 rounded-2xl bg-indigo-50 border border-indigo-100">
+
+              <div
+                class="p-5 rounded-2xl bg-indigo-50 border border-indigo-100">
 
                 <div class="flex gap-3">
 
@@ -638,14 +1339,16 @@
                   </div>
 
                   <div>
+
                     <h3 class="font-bold text-indigo-900">
                       พร้อมสร้าง Prompt แล้ว
                     </h3>
 
                     <p class="text-sm text-indigo-700 mt-1">
-                      ตรวจสอบข้อมูลใน Preview ด้านขวา แล้วสามารถกด
-                      “คัดลอก Prompt” เพื่อนำไปใช้กับ Gemini Notebook ได้ทันที
+                      ตรวจสอบ Prompt ด้านขวา แล้วกด
+                      “คัดลอก Prompt” เพื่อนำไปใช้กับ Gemini Notebook
                     </p>
+
                   </div>
 
                 </div>
@@ -655,38 +1358,80 @@
 
               <div class="grid grid-cols-2 gap-3">
 
-                <div class="p-4 rounded-2xl bg-slate-50 border">
-                  <p class="text-xs text-slate-500">จำนวนสไลด์</p>
-                  <p id="summarySlideCount" class="text-lg font-bold text-slate-800 mt-1">10</p>
-                </div>
 
                 <div class="p-4 rounded-2xl bg-slate-50 border">
-                  <p class="text-xs text-slate-500">ภาษา</p>
-                  <p id="summaryLanguage" class="text-lg font-bold text-slate-800 mt-1">ภาษาไทย</p>
+
+                  <p class="text-xs text-slate-500">
+                    จำนวนสไลด์
+                  </p>
+
+                  <p
+                    id="summarySlideCount"
+                    class="text-lg font-bold text-slate-800 mt-1">
+                    10
+                  </p>
+
                 </div>
 
-                <div class="p-4 rounded-2xl bg-slate-50 border">
-                  <p class="text-xs text-slate-500">สไตล์</p>
-                  <p id="summaryStyle" class="text-lg font-bold text-slate-800 mt-1">Modern Professional</p>
-                </div>
 
                 <div class="p-4 rounded-2xl bg-slate-50 border">
-                  <p class="text-xs text-slate-500">รูปแบบ</p>
-                  <p id="summaryFormat" class="text-lg font-bold text-slate-800 mt-1">Slide-by-Slide</p>
+
+                  <p class="text-xs text-slate-500">
+                    นำเสนอใคร
+                  </p>
+
+                  <p
+                    id="summaryAudience"
+                    class="text-lg font-bold text-slate-800 mt-1">
+                    ผู้บริหาร
+                  </p>
+
+                </div>
+
+
+                <div class="p-4 rounded-2xl bg-slate-50 border">
+
+                  <p class="text-xs text-slate-500">
+                    สไตล์
+                  </p>
+
+                  <p
+                    id="summaryStyle"
+                    class="text-lg font-bold text-slate-800 mt-1">
+                    Modern Professional
+                  </p>
+
+                </div>
+
+
+                <div class="p-4 rounded-2xl bg-slate-50 border">
+
+                  <p class="text-xs text-slate-500">
+                    รูปแบบ
+                  </p>
+
+                  <p
+                    id="summaryFormat"
+                    class="text-lg font-bold text-slate-800 mt-1">
+                    Slide-by-Slide
+                  </p>
+
                 </div>
 
               </div>
 
 
-              <div class="p-5 rounded-2xl border border-emerald-200 bg-emerald-50">
+              <div
+                class="p-5 rounded-2xl border border-emerald-200 bg-emerald-50">
 
                 <h3 class="font-bold text-emerald-800 mb-2">
                   💡 คำแนะนำ
                 </h3>
 
                 <p class="text-sm text-emerald-700 leading-6">
-                  หากต้องการให้ Gemini แยกเนื้อหาออกเป็นหน้าสไลด์อย่างชัดเจน
-                  ควรกำหนดหัวข้อของแต่ละสไลด์ให้ชัดเจนใน Step 3
+                  ตรวจสอบข้อมูลใน Real-time Prompt ด้านขวา
+                  หากถูกต้องสามารถกด “คัดลอก Prompt”
+                  แล้วนำไปใช้กับ Gemini Notebook ได้ทันที
                 </p>
 
               </div>
@@ -695,18 +1440,24 @@
 
           </div>
 
+
         </div>
 
 
-        <!-- NAVIGATION -->
-        <div class="px-6 py-5 border-t bg-slate-50 flex items-center justify-between">
+        <!-- =================================================
+             NAVIGATION
+        ================================================== -->
+
+        <div
+          class="px-6 py-5 border-t bg-slate-50 flex items-center justify-between">
 
           <button
             id="backBtn"
             onclick="previousStep()"
-            class="px-5 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-600 font-semibold hover:bg-slate-100 transition"
-          >
+            class="px-5 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-600 font-semibold hover:bg-slate-100 transition">
+
             ← ย้อนกลับ
+
           </button>
 
 
@@ -714,18 +1465,20 @@
 
             <button
               onclick="resetForm()"
-              class="px-5 py-2.5 rounded-xl border border-red-200 text-red-600 font-semibold hover:bg-red-50 transition"
-            >
+              class="px-5 py-2.5 rounded-xl border border-red-200 text-red-600 font-semibold hover:bg-red-50 transition">
+
               ล้างข้อมูล
+
             </button>
 
 
             <button
               id="nextBtn"
               onclick="nextStep()"
-              class="px-6 py-2.5 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700 shadow transition"
-            >
+              class="px-6 py-2.5 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700 shadow transition">
+
               ถัดไป →
+
             </button>
 
           </div>
@@ -735,16 +1488,25 @@
       </section>
 
 
-      <!-- RIGHT : PROMPT PREVIEW -->
-      <section class="bg-slate-900 rounded-3xl shadow-xl overflow-hidden flex flex-col lg:sticky lg:top-28 lg:h-[calc(100vh-150px)]">
+      <!-- =================================================
+           RIGHT : REAL-TIME PROMPT
+      ================================================== -->
 
-        <!-- PROMPT HEADER -->
-        <div class="px-5 py-4 border-b border-slate-700 flex items-center justify-between">
+      <section
+        class="bg-slate-900 rounded-3xl shadow-xl overflow-hidden flex flex-col lg:sticky lg:top-28 lg:h-[calc(100vh-150px)]">
+
+
+        <div
+          class="px-5 py-4 border-b border-slate-700 flex items-center justify-between">
+
 
           <div>
+
             <div class="flex items-center gap-2">
 
-              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span
+                class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse">
+              </span>
 
               <h2 class="text-white font-bold">
                 Real-time Prompt
@@ -753,40 +1515,43 @@
             </div>
 
             <p class="text-xs text-slate-400 mt-1">
-              Prompt จะอัปเดตอัตโนมัติตามข้อมูลที่กรอก
+              Prompt อัปเดตอัตโนมัติตามข้อมูลที่เลือก
             </p>
+
           </div>
 
 
           <button
             onclick="copyPrompt()"
-            class="px-4 py-2 rounded-xl bg-white text-slate-800 text-sm font-semibold hover:bg-slate-100 transition"
-          >
+            class="px-4 py-2 rounded-xl bg-white text-slate-800 text-sm font-semibold hover:bg-slate-100 transition">
+
             📋 คัดลอก Prompt
+
           </button>
 
         </div>
 
 
-        <!-- PROMPT -->
         <div class="flex-1 overflow-y-auto p-5">
 
           <div
             id="promptPreview"
-            class="prompt-box text-sm text-slate-200 leading-7 font-mono"
-          ></div>
+            class="prompt-box text-sm text-slate-200 leading-7 font-mono">
+          </div>
 
         </div>
 
 
-        <!-- PROMPT FOOTER -->
-        <div class="px-5 py-3 border-t border-slate-700 flex items-center justify-between">
+        <div
+          class="px-5 py-3 border-t border-slate-700 flex items-center justify-between">
 
           <span class="text-xs text-slate-500">
             Gemini Notebook Prompt Builder
           </span>
 
-          <span id="charCount" class="text-xs text-slate-500">
+          <span
+            id="charCount"
+            class="text-xs text-slate-500">
             0 characters
           </span>
 
@@ -800,343 +1565,515 @@
 
 
   <!-- TOAST -->
+
   <div
     id="toast"
-    class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-5 py-3 rounded-xl shadow-xl opacity-0 pointer-events-none transition-all duration-300"
-  >
+    class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-5 py-3 rounded-xl shadow-xl opacity-0 pointer-events-none transition-all duration-300">
+
     คัดลอก Prompt แล้ว ✓
+
   </div>
 
 
-<script>
+  <!-- =====================================================
+       JAVASCRIPT
+  ====================================================== -->
 
-  let currentStep = 1;
+  <script>
+
+    let currentStep = 1;
 
 
-  const stepInfo = {
+    const stepInfo = {
 
-    1: {
-      title: "ข้อมูลหลักของงาน",
-      icon: "📝"
-    },
+      1: {
+        title: "ข้อมูลหลักของงาน",
+        icon: "📝"
+      },
 
-    2: {
-      title: "เนื้อหา",
-      icon: "📚"
-    },
+      2: {
+        title: "แหล่งข้อมูล",
+        icon: "📚"
+      },
 
-    3: {
-      title: "โครงสร้างสไลด์",
-      icon: "🧩"
-    },
+      3: {
+        title: "โครงสร้างสไลด์",
+        icon: "🧩"
+      },
 
-    4: {
-      title: "รูปแบบการนำเสนอ",
-      icon: "🎨"
-    },
+      4: {
+        title: "รูปแบบการนำเสนอ",
+        icon: "🎨"
+      },
 
-    5: {
-      title: "รูปแบบผลลัพธ์",
-      icon: "📊"
-    },
+      5: {
+        title: "รูปแบบผลลัพธ์",
+        icon: "📊"
+      },
 
-    6: {
-      title: "ตรวจสอบและสร้าง Prompt",
-      icon: "🚀"
+      6: {
+        title: "ตรวจสอบและสร้าง Prompt",
+        icon: "🚀"
+      }
+
+    };
+
+
+    function getValue(id, fallback = "") {
+
+      const element =
+        document.getElementById(id);
+
+      if (!element) {
+        return fallback;
+      }
+
+      return element.value.trim() || fallback;
+
     }
 
-  };
 
+    function getRadioValue(name, fallback = "") {
 
-  function getValue(id, fallback = "") {
+      const selected =
+        document.querySelector(
+          `input[name="${name}"]:checked`
+        );
 
-    const element = document.getElementById(id);
+      return selected
+        ? selected.value
+        : fallback;
 
-    if (!element) {
-      return fallback;
     }
 
-    return element.value.trim() || fallback;
-  }
 
+    function getCheckedValues(className) {
 
-  function updateStepper() {
-
-    const circles = document.querySelectorAll(".step-circle");
-    const lines = document.querySelectorAll(".step-line");
-
-    circles.forEach((circle, index) => {
-
-      const step = index + 1;
-
-      circle.classList.remove(
-        "bg-indigo-600",
-        "text-white",
-        "bg-slate-200",
-        "text-slate-500"
+      return [
+        ...document.querySelectorAll(
+          `.${className}:checked`
+        )
+      ].map(
+        item => item.value
       );
 
-      if (step <= currentStep) {
+    }
 
-        circle.classList.add(
-          "bg-indigo-600",
-          "text-white"
+
+    function updateStepper() {
+
+      const circles =
+        document.querySelectorAll(
+          ".step-circle"
+        );
+
+      const lines =
+        document.querySelectorAll(
+          ".step-line"
+        );
+
+
+      circles.forEach(
+        (circle, index) => {
+
+          const step =
+            index + 1;
+
+
+          circle.classList.remove(
+            "bg-indigo-600",
+            "text-white",
+            "bg-slate-200",
+            "text-slate-500"
+          );
+
+
+          if (step <= currentStep) {
+
+            circle.classList.add(
+              "bg-indigo-600",
+              "text-white"
+            );
+
+          } else {
+
+            circle.classList.add(
+              "bg-slate-200",
+              "text-slate-500"
+            );
+
+          }
+
+        }
+      );
+
+
+      lines.forEach(
+        (line, index) => {
+
+          const step =
+            index + 1;
+
+
+          line.classList.remove(
+            "bg-indigo-500",
+            "bg-slate-200"
+          );
+
+
+          if (step < currentStep) {
+
+            line.classList.add(
+              "bg-indigo-500"
+            );
+
+          } else {
+
+            line.classList.add(
+              "bg-slate-200"
+            );
+
+          }
+
+        }
+      );
+
+    }
+
+
+    function updateStepContent() {
+
+      document
+        .querySelectorAll(".step-content")
+        .forEach(
+          element => {
+            element.classList.remove(
+              "active"
+            );
+          }
+        );
+
+
+      const active =
+        document.getElementById(
+          `step${currentStep}`
+        );
+
+
+      if (active) {
+        active.classList.add("active");
+      }
+
+
+      document.getElementById(
+        "stepNumber"
+      ).textContent =
+        `STEP ${currentStep} OF 6`;
+
+
+      document.getElementById(
+        "stepTitle"
+      ).textContent =
+        stepInfo[currentStep].title;
+
+
+      document.getElementById(
+        "stepIcon"
+      ).textContent =
+        stepInfo[currentStep].icon;
+
+
+      const backBtn =
+        document.getElementById(
+          "backBtn"
+        );
+
+
+      backBtn.disabled =
+        currentStep === 1;
+
+
+      if (currentStep === 1) {
+
+        backBtn.classList.add(
+          "opacity-40",
+          "cursor-not-allowed"
         );
 
       } else {
 
-        circle.classList.add(
-          "bg-slate-200",
-          "text-slate-500"
+        backBtn.classList.remove(
+          "opacity-40",
+          "cursor-not-allowed"
         );
 
       }
 
-    });
+
+      const nextBtn =
+        document.getElementById(
+          "nextBtn"
+        );
 
 
-    lines.forEach((line, index) => {
+      if (currentStep === 6) {
 
-      const step = index + 1;
+        nextBtn.textContent =
+          "✓ สร้าง Prompt";
 
-      line.classList.remove(
-        "bg-indigo-500",
-        "bg-slate-200"
-      );
+        nextBtn.onclick =
+          () => {
 
-      if (step < currentStep) {
+            updatePrompt();
 
-        line.classList.add("bg-indigo-500");
+            showToast(
+              "Prompt พร้อมใช้งานแล้ว ✓"
+            );
+
+          };
 
       } else {
 
-        line.classList.add("bg-slate-200");
+        nextBtn.textContent =
+          "ถัดไป →";
+
+        nextBtn.onclick =
+          nextStep;
 
       }
 
-    });
-
-  }
-
-
-  function updateStepContent() {
-
-    document.querySelectorAll(".step-content").forEach(element => {
-
-      element.classList.remove("active");
-
-    });
-
-
-    const active = document.getElementById(`step${currentStep}`);
-
-    if (active) {
-      active.classList.add("active");
     }
 
 
-    document.getElementById("stepNumber").textContent =
-      `STEP ${currentStep} OF 6`;
+    function goToStep(step) {
 
-    document.getElementById("stepTitle").textContent =
-      stepInfo[currentStep].title;
+      if (
+        step < 1 ||
+        step > 6
+      ) {
+        return;
+      }
 
-    document.getElementById("stepIcon").textContent =
-      stepInfo[currentStep].icon;
+
+      currentStep =
+        step;
 
 
-    document.getElementById("backBtn").disabled =
-      currentStep === 1;
+      updateStepper();
 
-    if (currentStep === 1) {
+      updateStepContent();
 
-      document.getElementById("backBtn").classList.add(
-        "opacity-40",
-        "cursor-not-allowed"
-      );
+      updatePrompt();
 
-    } else {
 
-      document.getElementById("backBtn").classList.remove(
-        "opacity-40",
-        "cursor-not-allowed"
-      );
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
 
     }
 
 
-    const nextBtn = document.getElementById("nextBtn");
+    function nextStep() {
 
-    if (currentStep === 6) {
+      if (currentStep < 6) {
 
-      nextBtn.textContent = "✓ สร้าง Prompt";
+        currentStep++;
 
-      nextBtn.onclick = () => {
+        updateStepper();
+
+        updateStepContent();
 
         updatePrompt();
 
-        showToast("Prompt พร้อมใช้งานแล้ว ✓");
 
-      };
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
 
-    } else {
-
-      nextBtn.textContent = "ถัดไป →";
-
-      nextBtn.onclick = nextStep;
+      }
 
     }
 
-  }
+
+    function previousStep() {
+
+      if (currentStep > 1) {
+
+        currentStep--;
+
+        updateStepper();
+
+        updateStepContent();
+
+        updatePrompt();
 
 
-  function goToStep(step) {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
 
-    if (step < 1 || step > 6) {
-      return;
-    }
-
-    currentStep = step;
-
-    updateStepper();
-    updateStepContent();
-    updatePrompt();
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-
-  }
-
-
-  function nextStep() {
-
-    if (currentStep < 6) {
-
-      currentStep++;
-
-      updateStepper();
-      updateStepContent();
-      updatePrompt();
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
+      }
 
     }
 
-  }
+
+    function buildPrompt() {
 
 
-  function previousStep() {
-
-    if (currentStep > 1) {
-
-      currentStep--;
-
-      updateStepper();
-      updateStepContent();
-      updatePrompt();
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-
-    }
-
-  }
+      const title =
+        getValue(
+          "title",
+          "[ยังไม่ได้ระบุชื่อเรื่อง]"
+        );
 
 
-  function getSelectedOutputs() {
-
-    return [...document.querySelectorAll(".output-check:checked")]
-      .map(item => item.value);
-
-  }
-
-
-  function buildPrompt() {
-
-    const title =
-      getValue("title", "[ยังไม่ได้ระบุชื่อเรื่อง]");
-
-    const objective =
-      getValue("objective", "[ยังไม่ได้ระบุวัตถุประสงค์]");
-
-    const slideCount =
-      getValue("slideCount", "10");
-
-    const language =
-      getValue("language", "ภาษาไทย");
-
-    const mainContent =
-      getValue("mainContent", "[ยังไม่ได้ระบุเนื้อหาหลัก]");
-
-    const keyPoints =
-      getValue("keyPoints", "[ยังไม่ได้ระบุประเด็นสำคัญ]");
-
-    const references =
-      getValue("references", "[ไม่มีข้อมูลอ้างอิงเพิ่มเติม]");
-
-    const emphasis =
-      getValue("emphasis", "[ไม่ได้ระบุ]");
-
-    const slideTopics =
-      getValue("slideTopics", "[ให้ AI วิเคราะห์และจัดหัวข้อให้เหมาะสม]");
-
-    const structure =
-      getValue("structure", "ภาพรวม → รายละเอียด → สรุป");
-
-    const bulletCount =
-      getValue("bulletCount", "ไม่เกิน 3 หัวข้อ");
-
-    const sectionMode =
-      getValue("sectionMode", "แบ่งเป็น Section อย่างชัดเจน");
-
-    const style =
-      getValue("style", "Modern Professional");
-
-    const colorTone =
-      getValue("colorTone", "สุภาพและเป็นมืออาชีพ");
-
-    const visual =
-      getValue("visual", "ใช้ภาพ ไอคอน และ Infographic ตามความเหมาะสม");
-
-    const formality =
-      getValue("formality", "เป็นทางการ");
-
-    const outputFormat =
-      getValue("outputFormat", "Slide-by-Slide");
-
-    const additionalRules =
-      getValue("additionalRules", "[ไม่มีข้อกำหนดเพิ่มเติม]");
-
-    const outputs =
-      getSelectedOutputs();
-
-    const outputItems =
-      outputs.length > 0
-        ? outputs.map(item => `- ${item}`).join("\n")
-        : "- Title\n- Key Message\n- Bullet Points\n- Visual Suggestion";
+      const audience =
+        getValue(
+          "audience",
+          "ผู้บริหาร"
+        );
 
 
-    return `คุณคือผู้เชี่ยวชาญด้านการออกแบบ Presentation และการจัดโครงสร้างเนื้อหาสำหรับ Gemini Notebook
+      const slideCount =
+        getValue(
+          "slideCount",
+          "10"
+        );
+
+
+      const language =
+        getValue(
+          "language",
+          "ภาษาไทย"
+        );
+
+
+      const dataSource =
+        getRadioValue(
+          "dataSource",
+          "[ยังไม่ได้เลือกแหล่งข้อมูล]"
+        );
+
+
+      const dataDetail =
+        getValue(
+          "dataDetail",
+          "[ไม่ได้ระบุรายละเอียดเพิ่มเติม]"
+        );
+
+
+      const slideTopics =
+        getValue(
+          "slideTopics",
+          "[ให้ AI วิเคราะห์และจัดหัวข้อให้เหมาะสม]"
+        );
+
+
+      const structure =
+        getValue(
+          "structure",
+          "เริ่มจากภาพรวม → รายละเอียด → สรุป"
+        );
+
+
+      const bulletCount =
+        getValue(
+          "bulletCount",
+          "ไม่เกิน 3 หัวข้อ"
+        );
+
+
+      const sectionMode =
+        getValue(
+          "sectionMode",
+          "แบ่งเป็น Section อย่างชัดเจน"
+        );
+
+
+      const style =
+        getValue(
+          "style",
+          "Modern Professional"
+        );
+
+
+      const colorTone =
+        getValue(
+          "colorTone",
+          "สุภาพและเป็นมืออาชีพ"
+        );
+
+
+      const visual =
+        getValue(
+          "visual",
+          "ใช้ภาพ ไอคอน และ Infographic ตามความเหมาะสม"
+        );
+
+
+      const formality =
+        getValue(
+          "formality",
+          "เป็นทางการ"
+        );
+
+
+      const outputFormat =
+        getValue(
+          "outputFormat",
+          "Slide-by-Slide"
+        );
+
+
+      const outputs =
+        getCheckedValues(
+          "output-check"
+        );
+
+
+      const rules =
+        getCheckedValues(
+          "rule-check"
+        );
+
+
+      const outputItems =
+        outputs.length > 0
+          ? outputs
+              .map(
+                item => `- ${item}`
+              )
+              .join("\n")
+          : "- ชื่อสไลด์\n- Key Message\n- Bullet Points";
+
+
+      const ruleItems =
+        rules.length > 0
+          ? rules
+              .map(
+                item => `- ${item}`
+              )
+              .join("\n")
+          : "- ปฏิบัติตามหลักการออกแบบสไลด์ที่อ่านง่ายและเป็นมืออาชีพ";
+
+
+      return `คุณคือผู้เชี่ยวชาญด้านการออกแบบ Presentation และการจัดโครงสร้างเนื้อหาสำหรับ Gemini Notebook
 
 หน้าที่ของคุณคือ:
-นำข้อมูลที่กำหนดด้านล่างไปสร้างโครงร่างสไลด์ Presentation ที่มีเนื้อหาชัดเจน กระชับ เป็นระบบ และพร้อมนำไปสร้างสไลด์จริง
+นำข้อมูลที่กำหนดด้านล่างไปสร้างโครงร่าง Presentation ที่มีเนื้อหาชัดเจน กระชับ เป็นระบบ และพร้อมนำไปสร้างสไลด์จริง
 
 ━━━━━━━━━━━━━━━━━━━━
 1. ข้อมูลหลักของงาน
 ━━━━━━━━━━━━━━━━━━━━
 
-ชื่อเรื่อง:
+ชื่อเรื่อง / หัวข้อ:
 ${title}
 
-วัตถุประสงค์:
-${objective}
+สไลด์นี้นำเสนอ:
+${audience}
 
 จำนวนสไลด์ที่ต้องการ:
 ${slideCount} หน้า
@@ -1146,20 +2083,14 @@ ${language}
 
 
 ━━━━━━━━━━━━━━━━━━━━
-2. เนื้อหา
+2. แหล่งข้อมูล
 ━━━━━━━━━━━━━━━━━━━━
 
-เนื้อหาหลัก:
-${mainContent}
+แหล่งที่มาของเนื้อหา:
+${dataSource}
 
-ประเด็นสำคัญ:
-${keyPoints}
-
-ข้อมูล / แหล่งอ้างอิง:
-${references}
-
-สิ่งที่ต้องการเน้นเป็นพิเศษ:
-${emphasis}
+รายละเอียดเกี่ยวกับข้อมูล:
+${dataDetail}
 
 
 ━━━━━━━━━━━━━━━━━━━━
@@ -1203,40 +2134,37 @@ ${formality}
 รูปแบบ:
 ${outputFormat}
 
-ในแต่ละสไลด์ให้แสดงข้อมูลดังต่อไปนี้:
+ข้อมูลที่ต้องการให้มีในแต่ละสไลด์:
 ${outputItems}
 
-ข้อกำหนดเพิ่มเติม:
-${additionalRules}
+ข้อกำหนดในการสร้างสไลด์:
+${ruleItems}
 
 
 ━━━━━━━━━━━━━━━━━━━━
-6. กฎสำคัญในการสร้างสไลด์
+6. กฎสำคัญ
 ━━━━━━━━━━━━━━━━━━━━
 
-1. แบ่งเนื้อหาออกเป็นสไลด์อย่างชัดเจน
-2. ให้ "หัวข้อหลัก 1 หัวข้อ = 1 สไลด์" เป็นหลัก
-3. ห้ามนำหลายหัวข้อหลักที่แตกต่างกันมารวมไว้ในสไลด์เดียว เว้นแต่จำเป็นจริง ๆ
-4. หากหัวข้อมีเนื้อหามาก ให้แยกเป็นหลายสไลด์แทนการยัดข้อมูลไว้หน้าเดียว
-5. แต่ละสไลด์ต้องมีประเด็นหลักเพียงหนึ่งประเด็น
-6. หลีกเลี่ยงข้อความยาวและย่อหน้าขนาดใหญ่
-7. ใช้ Bullet Point ที่สั้น กระชับ และอ่านง่าย
-8. เน้นข้อมูลสำคัญ ตัวเลข และข้อสรุป
-9. แนะนำ Visual ที่เหมาะสมกับเนื้อหาของแต่ละสไลด์
-10. หากมีข้อมูลตัวเลข ให้พิจารณานำเสนอด้วย Chart, Diagram หรือ Infographic
-11. รักษาลำดับการเล่าเรื่องให้ต่อเนื่อง
-12. ห้ามสร้างข้อมูลขึ้นมาเอง หากข้อมูลนั้นไม่มีอยู่ในแหล่งข้อมูลที่ให้
-13. หากข้อมูลไม่เพียงพอ ให้ระบุว่า "ข้อมูลไม่เพียงพอ" แทนการคาดเดา
-14. ใช้ภาษาที่เหมาะสมกับหัวข้อและมีความเป็นมืออาชีพ
-15. ทุกสไลด์ต้องมี Title ที่ชัดเจน
+1. สร้าง Presentation แบบ Slide-by-Slide อย่างชัดเจน
+2. ให้แต่ละสไลด์มีหัวข้อหลักที่ชัดเจน
+3. ห้ามนำข้อมูลหลายหัวข้อที่แตกต่างกันมารวมไว้ในหน้าเดียวโดยไม่จำเป็น
+4. หากข้อมูลของหัวข้อใดมีมาก ให้แยกเป็นหลายสไลด์
+5. ใช้ข้อความที่กระชับและเหมาะกับการแสดงบน Presentation
+6. อย่าใส่ข้อความจำนวนมากจนทำให้สไลด์อ่านยาก
+7. หากมีข้อมูลตัวเลข ให้พิจารณาใช้ Chart, Diagram หรือ Infographic
+8. หากมีข้อมูลจากแหล่งข้อมูลที่ให้มา ห้ามสร้างข้อมูลใหม่หรือคาดเดาข้อมูลที่ไม่มี
+9. รักษาลำดับการเล่าเรื่องให้ต่อเนื่อง
+10. ให้เนื้อหาเหมาะสมกับผู้รับชมที่ระบุไว้
+11. ทุกสไลด์ต้องมี Title ที่ชัดเจน
+12. Visual Suggestion ต้องสอดคล้องกับเนื้อหาของสไลด์
+
 
 ━━━━━━━━━━━━━━━━━━━━
-รูปแบบคำตอบที่ต้องการ
+รูปแบบคำตอบ
 ━━━━━━━━━━━━━━━━━━━━
-
-ให้ตอบตามโครงสร้างนี้:
 
 SLIDE 1
+
 Title:
 [ชื่อสไลด์]
 
@@ -1261,222 +2189,361 @@ Source / Reference:
 จากนั้นทำต่อในรูปแบบเดียวกันจนถึงสไลด์สุดท้าย
 
 สิ่งสำคัญที่สุด:
-ต้องจัดเนื้อหาให้เป็น "Slide-by-Slide" อย่างชัดเจน และต้องไม่รวมหลายหัวข้อหลักไว้ในหน้าเดียวโดยไม่จำเป็น
+ต้องจัดเนื้อหาเป็น Slide-by-Slide
+แต่ละสไลด์ต้องมีหัวข้อหลักที่ชัดเจน
+และต้องไม่รวมหลายหัวข้อหลักไว้ในหน้าเดียวโดยไม่จำเป็น
 
-เริ่มสร้าง Presentation จากข้อมูลทั้งหมดที่ให้ไว้ได้เลย`;
-  }
-
-
-  function updatePrompt() {
-
-    const prompt =
-      buildPrompt();
-
-    document.getElementById("promptPreview").textContent =
-      prompt;
-
-    document.getElementById("charCount").textContent =
-      `${prompt.length.toLocaleString()} characters`;
-
-
-    document.getElementById("summarySlideCount").textContent =
-      getValue("slideCount", "10");
-
-    document.getElementById("summaryLanguage").textContent =
-      getValue("language", "ภาษาไทย");
-
-    document.getElementById("summaryStyle").textContent =
-      getValue("style", "Modern Professional");
-
-    document.getElementById("summaryFormat").textContent =
-      getValue("outputFormat", "Slide-by-Slide");
-
-  }
-
-
-  async function copyPrompt() {
-
-    const prompt =
-      buildPrompt();
-
-    try {
-
-      await navigator.clipboard.writeText(prompt);
-
-      showToast("คัดลอก Prompt แล้ว ✓");
-
-    } catch (error) {
-
-      const textarea =
-        document.createElement("textarea");
-
-      textarea.value = prompt;
-
-      document.body.appendChild(textarea);
-
-      textarea.select();
-
-      document.execCommand("copy");
-
-      textarea.remove();
-
-      showToast("คัดลอก Prompt แล้ว ✓");
-
-    }
-
-  }
-
-
-  function showToast(message) {
-
-    const toast =
-      document.getElementById("toast");
-
-    toast.textContent =
-      message;
-
-    toast.classList.remove(
-      "opacity-0"
-    );
-
-    toast.classList.add(
-      "opacity-100"
-    );
-
-
-    setTimeout(() => {
-
-      toast.classList.remove(
-        "opacity-100"
-      );
-
-      toast.classList.add(
-        "opacity-0"
-      );
-
-    }, 2000);
-
-  }
-
-
-  function resetForm() {
-
-    if (!confirm("ต้องการล้างข้อมูลทั้งหมดหรือไม่?")) {
-      return;
+เริ่มสร้าง Presentation ได้เลย`;
     }
 
 
-    document.querySelectorAll("input, textarea").forEach(element => {
+    function updatePrompt() {
 
-      if (element.type === "checkbox") {
+      const prompt =
+        buildPrompt();
 
-        element.checked = false;
 
-      } else {
+      document.getElementById(
+        "promptPreview"
+      ).textContent =
+        prompt;
 
-        element.value = "";
+
+      document.getElementById(
+        "charCount"
+      ).textContent =
+        `${prompt.length.toLocaleString()} characters`;
+
+
+      document.getElementById(
+        "summarySlideCount"
+      ).textContent =
+        getValue(
+          "slideCount",
+          "10"
+        );
+
+
+      document.getElementById(
+        "summaryAudience"
+      ).textContent =
+        getValue(
+          "audience",
+          "ผู้บริหาร"
+        );
+
+
+      document.getElementById(
+        "summaryStyle"
+      ).textContent =
+        getValue(
+          "style",
+          "Modern Professional"
+        );
+
+
+      document.getElementById(
+        "summaryFormat"
+      ).textContent =
+        getValue(
+          "outputFormat",
+          "Slide-by-Slide"
+        );
+
+    }
+
+
+    async function copyPrompt() {
+
+      const prompt =
+        buildPrompt();
+
+
+      try {
+
+        await navigator.clipboard.writeText(
+          prompt
+        );
+
+        showToast(
+          "คัดลอก Prompt แล้ว ✓"
+        );
+
+      } catch (error) {
+
+        const textarea =
+          document.createElement(
+            "textarea"
+          );
+
+
+        textarea.value =
+          prompt;
+
+
+        document.body.appendChild(
+          textarea
+        );
+
+
+        textarea.select();
+
+
+        document.execCommand(
+          "copy"
+        );
+
+
+        textarea.remove();
+
+
+        showToast(
+          "คัดลอก Prompt แล้ว ✓"
+        );
 
       }
 
-    });
+    }
 
 
-    document.getElementById("slideCount").value = "10";
-    document.getElementById("language").value = "ภาษาไทย";
+    function showToast(message) {
 
-    document.getElementById("structure").value =
-      "เริ่มจากภาพรวม → รายละเอียด → สรุป";
-
-    document.getElementById("bulletCount").value =
-      "ไม่เกิน 3 หัวข้อ";
-
-    document.getElementById("sectionMode").value =
-      "แบ่งเป็น Section อย่างชัดเจน";
-
-    document.getElementById("style").value =
-      "Modern Professional";
-
-    document.getElementById("colorTone").value =
-      "สุภาพและเป็นมืออาชีพ";
-
-    document.getElementById("visual").value =
-      "ใช้ภาพ ไอคอน และ Infographic ตามความเหมาะสม";
-
-    document.getElementById("formality").value =
-      "เป็นทางการ";
-
-    document.getElementById("outputFormat").value =
-      "Slide-by-Slide";
+      const toast =
+        document.getElementById(
+          "toast"
+        );
 
 
-    currentStep = 1;
+      toast.textContent =
+        message;
+
+
+      toast.classList.remove(
+        "opacity-0"
+      );
+
+
+      toast.classList.add(
+        "opacity-100"
+      );
+
+
+      setTimeout(
+        () => {
+
+          toast.classList.remove(
+            "opacity-100"
+          );
+
+          toast.classList.add(
+            "opacity-0"
+          );
+
+        },
+        2000
+      );
+
+    }
+
+
+    function resetForm() {
+
+      if (
+        !confirm(
+          "ต้องการล้างข้อมูลทั้งหมดหรือไม่?"
+        )
+      ) {
+        return;
+      }
+
+
+      document
+        .querySelectorAll(
+          "input, textarea"
+        )
+        .forEach(
+          element => {
+
+            if (
+              element.type ===
+              "checkbox" ||
+              element.type ===
+              "radio"
+            ) {
+
+              element.checked =
+                false;
+
+            } else {
+
+              element.value =
+                "";
+
+            }
+
+          }
+        );
+
+
+      document.getElementById(
+        "slideCount"
+      ).value = "10";
+
+
+      document.getElementById(
+        "language"
+      ).value =
+        "ภาษาไทย";
+
+
+      document.getElementById(
+        "audience"
+      ).value =
+        "ผู้บริหาร";
+
+
+      document.getElementById(
+        "structure"
+      ).value =
+        "เริ่มจากภาพรวม → รายละเอียด → สรุป";
+
+
+      document.getElementById(
+        "bulletCount"
+      ).value =
+        "ไม่เกิน 3 หัวข้อ";
+
+
+      document.getElementById(
+        "sectionMode"
+      ).value =
+        "แบ่งเป็น Section อย่างชัดเจน";
+
+
+      document.getElementById(
+        "style"
+      ).value =
+        "Modern Professional";
+
+
+      document.getElementById(
+        "colorTone"
+      ).value =
+        "สุภาพและเป็นมืออาชีพ";
+
+
+      document.getElementById(
+        "visual"
+      ).value =
+        "ใช้ภาพ ไอคอน และ Infographic ตามความเหมาะสม";
+
+
+      document.getElementById(
+        "formality"
+      ).value =
+        "เป็นทางการ";
+
+
+      document.getElementById(
+        "outputFormat"
+      ).value =
+        "Slide-by-Slide";
+
+
+      currentStep =
+        1;
+
+
+      updateStepper();
+
+      updateStepContent();
+
+      updatePrompt();
+
+
+      showToast(
+        "ล้างข้อมูลเรียบร้อยแล้ว"
+      );
+
+    }
+
+
+    /*
+      REAL-TIME PROMPT
+    */
+
+    document.addEventListener(
+      "input",
+      event => {
+
+        if (
+          event.target.matches(
+            "input, textarea, select"
+          )
+        ) {
+
+          updatePrompt();
+
+        }
+
+      }
+    );
+
+
+    document.addEventListener(
+      "change",
+      event => {
+
+        if (
+          event.target.matches(
+            "input, textarea, select"
+          )
+        ) {
+
+          updatePrompt();
+
+        }
+
+      }
+    );
+
+
+    /*
+      KEYBOARD SHORTCUT
+      Ctrl + Enter = Copy Prompt
+    */
+
+    document.addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.ctrlKey &&
+          event.key === "Enter"
+        ) {
+
+          event.preventDefault();
+
+          copyPrompt();
+
+        }
+
+      }
+    );
+
+
+    /*
+      INITIALIZE
+    */
 
     updateStepper();
+
     updateStepContent();
+
     updatePrompt();
 
-    showToast("ล้างข้อมูลเรียบร้อยแล้ว");
-
-  }
-
-
-  // Real-time update
-  document.addEventListener("input", function(event) {
-
-    if (
-      event.target.matches(
-        "input, textarea, select"
-      )
-    ) {
-
-      updatePrompt();
-
-    }
-
-  });
-
-
-  document.addEventListener("change", function(event) {
-
-    if (
-      event.target.matches(
-        "input, textarea, select"
-      )
-    ) {
-
-      updatePrompt();
-
-    }
-
-  });
-
-
-  // Keyboard shortcut
-  document.addEventListener("keydown", function(event) {
-
-    // Ctrl + Enter = Copy Prompt
-    if (
-      event.ctrlKey &&
-      event.key === "Enter"
-    ) {
-
-      event.preventDefault();
-
-      copyPrompt();
-
-    }
-
-  });
-
-
-  // INITIALIZE
-  updateStepper();
-  updateStepContent();
-  updatePrompt();
-
-</script>
+  </script>
 
 </body>
 </html>
 ```
-
